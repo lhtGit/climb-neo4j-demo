@@ -42,7 +42,7 @@ public class MybatisConfig {
         fb.setConfiguration(mybatisProperties.getConfiguration());
         //配饰插件 分页、
         fb.setPlugins(mybatisPlusInterceptor());
-        Resource[] resources=new PathMatchingResourcePatternResolver().getResources("classpath*:mysql/mapper/*.xml");
+        Resource[] resources=new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/*.xml");
         fb.setMapperLocations(resources);
         return fb.getObject();
     }

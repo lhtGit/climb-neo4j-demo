@@ -7,6 +7,7 @@ import com.example.neo4j.entity.SysDicData;
 import com.example.neo4j.neo4j.dao.Neo4jDemoDao;
 import com.example.neo4j.neo4j.entity.Neo4jDemo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -67,7 +68,61 @@ public class DemoController {
         neo4jDemo.setAmount(new BigDecimal("1.038"));
         neo4jDemo.setStatus(1);
         neo4jDemo.setName(name);
-        return neo4jDemoDao.addDemo(neo4jDemo);
+        return neo4jDemoDao.insert(neo4jDemo);
+    }
+
+    /**
+     * update neo4j demo
+     * @author lht
+     * @since  2021/1/8 17:22
+     * @param name
+     * @param val
+     */
+    @GetMapping("update/neo4j/demo")
+    public int neo4jUpdate(String name,String val){
+        Neo4jDemo neo4jDemo = new Neo4jDemo();
+        neo4jDemo.setName(name);
+        Neo4jDemo neo4jDemoVal = new Neo4jDemo();
+        neo4jDemoVal.setName(val);
+        return neo4jDemoDao.update(neo4jDemo,neo4jDemoVal);
+    }
+
+    /**
+     * delete neo4j demo
+     * @author lht
+     * @since  2021/1/8 17:22
+     * @param name
+     */
+    @GetMapping("delete/neo4j/demo")
+    public int neo4jDelete(String name){
+        Neo4jDemo neo4jDemo = new Neo4jDemo();
+        neo4jDemo.setName(name);
+        return neo4jDemoDao.delete(neo4jDemo);
+    }
+
+    /**
+     * update neo4j demo
+     * @author lht
+     * @since  2021/1/8 17:22
+     * @param name
+     * @param val
+     */
+    @GetMapping("update/neo4j/demo/{name}")
+    public int neo4jUpdateById(@PathVariable String name, String val){
+        Neo4jDemo neo4jDemoVal = new Neo4jDemo();
+        neo4jDemoVal.setName(val);
+        return neo4jDemoDao.updateById(name,neo4jDemoVal);
+    }
+
+    /**
+     * delete neo4j demo
+     * @author lht
+     * @since  2021/1/8 17:22
+     * @param name
+     */
+    @GetMapping("delete/neo4j/demo/{name}")
+    public int neo4jDeleteById(@PathVariable String name){
+        return neo4jDemoDao.deleteById(name);
     }
 
 

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.neo4j.neo4j.dao.Neo4jDemoDao">
-    <insert id="addDemo">
-        CREATE (n:Demo {name:#{name},status:#{status},amount:#{amount}})
-    </insert>
 
     <select id="findAll" resultType="com.example.neo4j.neo4j.entity.Neo4jDemo">
         match (n:Demo) return n.name as name,n.amount as amount,n.status as status

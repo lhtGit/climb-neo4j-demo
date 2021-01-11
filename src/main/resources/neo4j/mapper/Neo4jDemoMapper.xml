@@ -3,7 +3,7 @@
 <mapper namespace="com.example.neo4j.neo4j.dao.Neo4jDemoDao">
 
     <select id="findAll" resultType="com.example.neo4j.neo4j.entity.Neo4jDemo">
-        match (n:Demo) return n.name as name,n.amount as amount,n.status as status
+        match (n:Neo4jDemo) return n.name as name,n.amount as amount,n.status as status
     </select>
 
 </mapper>

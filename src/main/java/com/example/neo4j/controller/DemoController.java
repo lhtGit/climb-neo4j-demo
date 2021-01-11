@@ -2,6 +2,7 @@ package com.example.neo4j.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,6 +10,7 @@ import com.example.neo4j.dao.SysDicDataDao;
 import com.example.neo4j.entity.SysDicData;
 import com.example.neo4j.neo4j.dao.Neo4jDemoDao;
 import com.example.neo4j.neo4j.entity.Neo4jDemo;
+import com.google.common.collect.Lists;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +59,7 @@ public class DemoController {
     @GetMapping("neo4j/demo")
     public Page<Neo4jDemo> neo4jDemoList(int page,int size){
         Page<Neo4jDemo> demoPage = new Page<>(page,size);
+        demoPage.setOrders(Lists.newArrayList(OrderItem.desc("n.name")));
         return neo4jDemoDao.findAll(demoPage);
     }
 

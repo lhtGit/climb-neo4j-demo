@@ -1,6 +1,9 @@
 package com.example.neo4j.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.neo4j.dao.SysDicDataDao;
 import com.example.neo4j.entity.SysDicData;
@@ -41,7 +44,8 @@ public class DemoController {
      */
     @GetMapping("data")
     public Collection<SysDicData> dataList(){
-        return sysDicDataDao.selectList(null);
+        LambdaQueryWrapper<SysDicData> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        return sysDicDataDao.selectList(lambdaQueryWrapper);
     }
 
     /**
@@ -79,11 +83,11 @@ public class DemoController {
      * @param val
      */
     @GetMapping("update/neo4j/demo")
-    public int neo4jUpdate(String name,String val){
+    public int neo4jUpdate(String name,Integer val){
         Neo4jDemo neo4jDemo = new Neo4jDemo();
         neo4jDemo.setName(name);
         Neo4jDemo neo4jDemoVal = new Neo4jDemo();
-        neo4jDemoVal.setName(val);
+        neo4jDemoVal.setStatus(val);
         return neo4jDemoDao.update(neo4jDemo,neo4jDemoVal);
     }
 
@@ -108,9 +112,9 @@ public class DemoController {
      * @param val
      */
     @GetMapping("update/neo4j/demo/{name}")
-    public int neo4jUpdateById(@PathVariable String name, String val){
+    public int neo4jUpdateById(@PathVariable String name, Integer val){
         Neo4jDemo neo4jDemoVal = new Neo4jDemo();
-        neo4jDemoVal.setName(val);
+        neo4jDemoVal.setStatus(val);
         return neo4jDemoDao.updateById(name,neo4jDemoVal);
     }
 
@@ -124,6 +128,5 @@ public class DemoController {
     public int neo4jDeleteById(@PathVariable String name){
         return neo4jDemoDao.deleteById(name);
     }
-
 
 }

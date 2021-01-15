@@ -6,7 +6,24 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 spring:
   application:
-    name: climb-neo4j-demo #服务名
+    name: ${artifactId}
+  profiles:
+    active: ${profile.name}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${discovery.server-addr}
+        namespace: ${discovery.namespace}
+        group: ${discovery.group}
+      config:
+        server-addr:  ${config.server-addr}
+        namespace: ${config.namespace}
+        group: ${config.group}
+        file-extension: yml
+        shared-configs:
+          - dataId: seata.yml
+            group: DEFAULT_GROUP
+            refresh: true
   # mysql 数据库设置
   datasource:
     username: root

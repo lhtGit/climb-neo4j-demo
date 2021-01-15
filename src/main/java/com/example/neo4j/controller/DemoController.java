@@ -1,16 +1,22 @@
 package com.example.neo4j.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.neo4j.dao.MenuDao;
 import com.example.neo4j.dao.SysDicDataDao;
+import com.example.neo4j.entity.Menu;
 import com.example.neo4j.entity.SysDicData;
 import com.example.neo4j.neo4j.dao.Neo4jDemoDao;
+import com.example.neo4j.neo4j.dao.Neo4jMenuDao;
 import com.example.neo4j.neo4j.entity.Neo4jDemo;
+import com.example.neo4j.neo4j.entity.Neo4jMenu;
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -130,6 +137,26 @@ public class DemoController {
     @GetMapping("delete/neo4j/demo/{name}")
     public int neo4jDeleteById(@PathVariable String name){
         return neo4jDemoDao.deleteById(name);
+    }
+
+
+
+
+
+    @Autowired
+    MenuDao menuDao;
+    @Autowired
+    Neo4jMenuDao neo4jMenuDao;
+
+    @GetMapping("saveNeo4jMenuByMenu")
+    public void s(){
+        List<Menu>  menus = menuDao.selectList(null);
+        menus.forEach(menu -> {
+            Neo4jMenu neo4jMenu = new Neo4jMenu();
+            BeanUtil.copyProperties(menu,neo4jMenu);
+            neo4jMenuDao.insert(neo4jMenu);
+        });
+
     }
 
 }

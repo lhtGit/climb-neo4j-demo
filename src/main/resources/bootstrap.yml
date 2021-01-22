@@ -20,10 +20,10 @@ spring:
         namespace: ${config.namespace}
         group: ${config.group}
         file-extension: yml
-        shared-configs:
-          - dataId: seata.yml
-            group: DEFAULT_GROUP
-            refresh: true
+#        shared-configs:
+#          - dataId: seata.yml
+#            group: DEFAULT_GROUP
+#            refresh: true
   # mysql 数据库设置
   datasource:
     username: root
@@ -65,3 +65,25 @@ neo4j:
   mybatis:
     basePackages: com.example.neo4j.neo4j.dao
     localtionPattern: classpath*:neo4j/mapper/*.xml
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      group: DEFAULT_GROUP
+      server-addr: 192.168.13.3:8848
+      namespace: lhtGit
+      cluster: seata-server
+      username: nacos
+      password: nacos
+  config:
+    type: nacos
+    nacos:
+      server-addr: 192.168.13.3:8848
+      group: SEATA_GROUP
+      namespace: lhtGit
+      username: nacos
+      password: nacos
+  tx-service-group: tx_group
+  enable-auto-data-source-proxy: true

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.climb.mybatis.page.interceptor.ExtensionPaginationInnerInterceptor;
+import com.climb.neo4j.constant.Neo4jConstant;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -16,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -25,7 +28,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @MapperScan(basePackages  = {"com.example.neo4j.dao"},sqlSessionTemplateRef  ="mysqlSqlSessionTemplate")
-public class MybatisConfig {
+public class MysqlMybatisConfig {
     @Bean("mysqlDatasource")
     @Primary
     @ConfigurationProperties("spring.datasource")
@@ -54,6 +57,10 @@ public class MybatisConfig {
     }
 
 
+    @Bean
+    public DataSourceTransactionManager  transactionManager(@Qualifier("mysqlDatasource") DataSource prodDataSource) {
+        return new DataSourceTransactionManager(prodDataSource);
+    }
     /**
      * 使用mybatis的分页插件 ，该分页插件已经扩展为可以用于neo4j
      */

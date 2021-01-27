@@ -65,6 +65,7 @@ neo4j:
   mybatis:
     basePackages: com.example.neo4j.neo4j.dao
     localtionPattern: classpath*:neo4j/mapper/*.xml
+  enable-open-local-transaction: true
 
 seata:
   registry:
@@ -86,4 +87,3 @@ seata:
       username: nacos
       password: nacos
   tx-service-group: tx_group
-  enable-auto-data-source-proxy: true

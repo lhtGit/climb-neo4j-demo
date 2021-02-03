@@ -66,7 +66,9 @@ neo4j:
     basePackages: com.example.neo4j.neo4j.dao
     localtionPattern: classpath*:neo4j/mapper/*.xml
   enable-open-local-transaction: true
-
+logging:
+  level:
+    com.alibaba.nacos.client.config.impl: WARN
 seata:
   registry:
     type: nacos

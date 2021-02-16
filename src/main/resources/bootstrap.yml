@@ -29,7 +29,7 @@ spring:
     username: root
     password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.8.231:3306/db_erp_base?setUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.13.3:3306/test?setUnicode=true&characterEncoding=utf8
 
     # 初始化大小，最小，最大
     initialSize: 5

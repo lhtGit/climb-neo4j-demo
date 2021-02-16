@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bouncycastle.asn1.pkcs.Pfx;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Neo4jDemo {
     @TableId
+    private String id;
     private String name;
     private Integer status;
     private BigDecimal amount;

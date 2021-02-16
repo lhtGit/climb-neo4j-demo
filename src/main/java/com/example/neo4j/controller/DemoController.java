@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.climb.common.util.IdUtils;
 import com.example.neo4j.dao.SysDicDataDao;
 import com.example.neo4j.entity.SysDicData;
 import com.example.neo4j.neo4j.dao.Neo4jDemoDao;
+import com.example.neo4j.neo4j.dao.TestRelationshipDao;
 import com.example.neo4j.neo4j.entity.Neo4jDemo;
+import com.example.neo4j.neo4j.entity.TestRelationship;
 import com.example.neo4j.neo4j.service.Neo4jService;
 import com.google.common.collect.Lists;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -42,7 +46,24 @@ public class DemoController {
     private Neo4jDemoDao neo4jDemoDao;
     @Autowired
     private Neo4jService neo4jService;
+    @Autowired
+    private TestRelationshipDao testRelationshipDao;
 
+    /**
+     * 创建关联关系
+     * @author lht
+     * @since  2021/2/16 9:45
+     * @param formId
+     * @param toId
+     */
+    @GetMapping("create/relationship")
+    public void createRelationship(String formId,String toId){
+        TestRelationship testRelationship = new TestRelationship();
+        testRelationship.setName("test");
+        testRelationship.setFormId(formId);
+        testRelationship.setToId(toId);
+        testRelationshipDao.insert(testRelationship,"Neo4jDemo","Neo4jDemo");
+    }
     /**
      * 测试seata分布式事务关联mysql和neo4j的事务
      * @author lht
@@ -101,6 +122,7 @@ public class DemoController {
     @GetMapping("create/neo4j/demo")
     public int neo4jCreate(String name){
         Neo4jDemo neo4jDemo = new Neo4jDemo();
+        neo4jDemo.setId(IdUtils.nextId());
         neo4jDemo.setAmount(new BigDecimal("1.038"));
         neo4jDemo.setStatus(1);
         neo4jDemo.setName(name);

@@ -47,6 +47,7 @@ public class MysqlMybatisConfig {
         fb.setPlugins(mybatisPlusInterceptor());
         Resource[] resources=new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/*.xml");
         fb.setMapperLocations(resources);
+        fb.setGlobalConfig(mybatisProperties.getGlobalConfig());
         return fb.getObject();
     }
 

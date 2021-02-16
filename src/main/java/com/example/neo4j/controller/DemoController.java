@@ -62,6 +62,7 @@ public class DemoController {
         testRelationship.setName("test");
         testRelationship.setFormId(formId);
         testRelationship.setToId(toId);
+        testRelationship.setTestTitle("testTilte");
         testRelationshipDao.insert(testRelationship,"Neo4jDemo","Neo4jDemo");
     }
     /**
@@ -126,6 +127,7 @@ public class DemoController {
         neo4jDemo.setAmount(new BigDecimal("1.038"));
         neo4jDemo.setStatus(1);
         neo4jDemo.setName(name);
+        neo4jDemo.setTestTitle("test title");
         neo4jDemoDao.insert(neo4jDemo);
         return 1;
     }

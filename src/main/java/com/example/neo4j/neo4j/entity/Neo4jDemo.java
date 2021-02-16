@@ -25,4 +25,5 @@ public class Neo4jDemo {
     private String name;
     private Integer status;
     private BigDecimal amount;
+    private String testTitle;
 }

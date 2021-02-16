@@ -12,4 +12,5 @@ import lombok.Data;
 @TableName("TestRelationship")
 public class TestRelationship extends BaseRelationship {
     private String name;
+    private String testTitle;
 }

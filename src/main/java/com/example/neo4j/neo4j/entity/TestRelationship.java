@@ -1,7 +1,8 @@
 package com.example.neo4j.neo4j.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.climb.mybatis.injector.neo4j.relationship.bean.BaseRelationship;
+import com.climb.mybatis.injector.neo4j.relationship.annotation.FormRelationship;
+import com.climb.mybatis.injector.neo4j.relationship.annotation.ToRelationship;
 import lombok.Data;
 
 /**
@@ -10,7 +11,12 @@ import lombok.Data;
  */
 @Data
 @TableName("TestRelationship")
-public class TestRelationship extends BaseRelationship {
+public class TestRelationship {
+
+    @FormRelationship("Neo4jDemo")
+    private String formId;
+    @ToRelationship("Neo4jDemo")
+    private String toId;
     private String name;
     private String testTitle;
 }

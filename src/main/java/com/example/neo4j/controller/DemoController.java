@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -63,7 +61,7 @@ public class DemoController {
         testRelationship.setFormId(formId);
         testRelationship.setToId(toId);
         testRelationship.setTestTitle("testTilte");
-        testRelationshipDao.insert(testRelationship,"Neo4jDemo","Neo4jDemo");
+        testRelationshipDao.insert(testRelationship);
     }
     /**
      * 测试seata分布式事务关联mysql和neo4j的事务
